@@ -1,4 +1,10 @@
 import pandas as pd
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--property', type=str, help="Property to filter by")
+
+args = parser.parse_args()
 
 # Reads a single row of a csv file and converts it to a txt in FAQ format.
 def read_csv_and_write_to_txt(csv_file, **kwargs):
@@ -34,6 +40,9 @@ def read_csv_and_write_to_txt(csv_file, **kwargs):
       question = column
       answer = row[column]
 
+      if pd.isna(answer):
+        continue
+
       # Write the question and answer to the file
       file.write(f"Q: {question}\n")
       file.write(f"A: {answer}\n")
@@ -44,4 +53,8 @@ def read_csv_and_write_to_txt(csv_file, **kwargs):
 
 excel_file = "./community_information_collection.csv"
 
-read_csv_and_write_to_txt(excel_file, filter_value="San Cervantes", encoding="ISO-8859-1", start_column="Is your community hybrid?", filter_by="Community Name")
+read_csv_and_write_to_txt(excel_file, filter_value=args.property, encoding="ISO-8859-1", start_column="Is your community hybrid?", filter_by="Community Name")
+
+
+# How to execute the file
+# python read_property_and_convert_to_faq.py --property Bellagio
