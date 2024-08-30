@@ -25,7 +25,7 @@ def read_csv_and_write_to_txt(csv_file, **kwargs):
   if filtered_row.empty:
       print(f"No rows found with {start_column} = {filter_value}")
       return
-  
+
   with open(output_file_name, 'w') as file:
     row = filtered_row.iloc[0]
 
@@ -44,4 +44,4 @@ def read_csv_and_write_to_txt(csv_file, **kwargs):
 
 excel_file = "./community_information_collection.csv"
 
-read_csv_and_write_to_txt(excel_file, filter_value="San Cervantes", encoding="ISO-8859-1", start_column="Is your community hybrid?1", filter_by="Community Name")
+read_csv_and_write_to_txt(excel_file, filter_value="San Cervantes", encoding="ISO-8859-1", start_column="Is your community hybrid?", filter_by="Community Name")
